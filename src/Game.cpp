@@ -2,6 +2,10 @@
 #include "./Constants.h"
 #include "./Game.h"
 #include "../lib/glm/glm.hpp"
+#include "./Components/TransformComponent.h"
+
+EntityManager manager;
+SDL_Renderer* Game::renderer;
 
 Game::Game()
 {
@@ -17,10 +21,6 @@ bool Game::IsRunning() const
 {
     return this->isRunning;
 }
-
-// TODO: Test code. Remove
-glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
-glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
 
 void Game::Initialize(int width, int height)
 {
@@ -58,9 +58,18 @@ void Game::Initialize(int width, int height)
         return;
     }
 
+    LoadLevel(0);
+
     isRunning = true;
 
     return;
+}
+
+void Game::LoadLevel(int levelNumber)
+{
+    // Testing Entity Component 
+    Entity& newEntity(manager.AddEntity("projectile"));
+    newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
 }
 
 void Game::ProcessInput()
@@ -99,11 +108,7 @@ void Game::Update()
     // Sets the new ticks for the current frame to be used in the next pass.
     ticksLastFrame = SDL_GetTicks();
 
-    // TODO: Test code Remove
-    projectilePos = glm::vec2( 
-        projectilePos.x + projectileVel.x * deltaTime,
-        projectilePos.y + projectileVel.y * deltaTime
-        );
+    manager.Update(deltaTime);
 }
 
 void Game::Render()
@@ -112,14 +117,12 @@ void Game::Render()
     // Clear the buffer
     SDL_RenderClear(renderer);
 
-    SDL_Rect projectile {
-        (int)projectilePos.x,
-        (int)projectilePos.y,
-        10,
-        10,
-    };
-    SDL_SetRenderDrawColor(renderer,255,255,255,255);
-    SDL_RenderFillRect(renderer, &projectile);
+    if(manager.HasNoEntities())
+    {
+        return;
+    }
+
+    manager.Render();
 
     // Swap the buffers
     SDL_RenderPresent(renderer);
