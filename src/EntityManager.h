@@ -9,6 +9,7 @@ class EntityManager
         std::vector<Entity*> entities;
     public:
         void ClearData();
+        void Initialize();
         void Update(float deltaTime);
         void Render();
         bool HasNoEntities() const;

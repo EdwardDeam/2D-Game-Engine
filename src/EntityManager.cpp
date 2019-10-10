@@ -1,5 +1,6 @@
 #include "./EntityManager.h"
 
+
 void EntityManager::ClearData()
 {
     for(auto& entity: entities)
@@ -11,6 +12,14 @@ void EntityManager::ClearData()
 bool EntityManager::HasNoEntities() const
 {
     return entities.size() == 0;
+}
+
+void EntityManager::Initialize()
+{
+    for(auto& entity: entities)
+    {
+        entity->Initialize();
+    }
 }
 
 void EntityManager::Update(float deltaTime)

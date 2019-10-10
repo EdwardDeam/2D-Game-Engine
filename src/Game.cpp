@@ -63,6 +63,8 @@ void Game::Initialize(int width, int height)
 
     LoadLevel(0);
 
+    manager.Initialize();
+
     isRunning = true;
 
     return;
@@ -79,8 +81,16 @@ void Game::LoadLevel(int levelNumber)
 
     // Testing Entity Component 
     Entity& newEntity(manager.AddEntity("tank"));
-    newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    newEntity.AddComponent<TransformComponent>(100, 100, 20, 20, 32, 32, 1);
     newEntity.AddComponent<SpriteComponent>("tank-image");
+
+    Entity& newEntity2(manager.AddEntity("tank2"));
+    newEntity2.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    newEntity2.AddComponent<SpriteComponent>("tank-image");
+
+    Entity& newEntity3(manager.AddEntity("tank3"));
+    newEntity3.AddComponent<TransformComponent>(600, 500, -20, -20, 32, 32, 2);
+    newEntity3.AddComponent<SpriteComponent>("tank-image");
 }
 
 void Game::ProcessInput()
