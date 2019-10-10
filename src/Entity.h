@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <typeinfo>
 #include "./EntityManager.h"
 #include "./Component.h"
 
@@ -30,7 +31,7 @@ class Entity
             T* newComponent(new T(std::forward<TArgs>(args)...));
             newComponent->owner = this;
             components.emplace_back(newComponent);
-            componentTypeMap[&typeid(*newComponent)] = newComponent
+            componentTypeMap[&typeid(*newComponent)] = newComponent;
             newComponent->Initialize();
             return *newComponent;
         }
