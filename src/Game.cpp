@@ -63,9 +63,6 @@ void Game::Initialize(int width, int height)
 
     LoadLevel(0);
 
-    // TODO: Testing Logging, Remove
-    manager.LogAllEntities();
-
     isRunning = true;
 
     return;
