@@ -1,4 +1,3 @@
-#include <iostream>
 #include "./Entity.h"
 
 Entity::Entity(EntityManager& manager): manager(manager)
@@ -13,13 +12,7 @@ Entity::Entity(EntityManager& manager, std::string name): manager(manager), name
 
 void Entity::Initialize()
 {
-    // TODO: Wrap this for DEBUG setting only.
-    // Log Entity and component data.
-    std::cout << "Entity Name: " << name << "\n";
-    for (auto const &typeComponent : componentTypeMap) {
-        std::cout <<"\t Component<" << typeComponent.second->name << ">\n";
-    }  
-    std::cout << "\n" << std::endl;
+
 }
 
 void Entity::Update(float deltaTime)
@@ -46,4 +39,12 @@ void Entity::Destroy()
 bool Entity::IsActive() const
 {
     return this->isActive;
+}
+
+void Entity::LogAllComponents() const
+{
+    for (auto const &mapElement : componentTypeMap) {
+        std::cout <<"    Component<" << mapElement.first->name() << ">\n";
+    }
+    std::cout << std::endl;
 }

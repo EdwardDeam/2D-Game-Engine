@@ -63,7 +63,8 @@ void Game::Initialize(int width, int height)
 
     LoadLevel(0);
 
-    manager.Initialize();
+    // TODO: Testing Logging, Remove
+    manager.LogAllEntities();
 
     isRunning = true;
 
@@ -80,17 +81,17 @@ void Game::LoadLevel(int levelNumber)
     // Start including entities and also components for them
 
     // Testing Entity Component 
-    Entity& newEntity(manager.AddEntity("tank"));
-    newEntity.AddComponent<TransformComponent>(100, 100, 20, 20, 32, 32, 1);
-    newEntity.AddComponent<SpriteComponent>("tank-image");
+    Entity& newEntityA(manager.AddEntity("tank"));
+    newEntityA.AddComponent<TransformComponent>(100, 100, 20, 20, 32, 32, 1);
+    newEntityA.AddComponent<SpriteComponent>("tank-image");
 
-    Entity& newEntity2(manager.AddEntity("tank2"));
-    newEntity2.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-    newEntity2.AddComponent<SpriteComponent>("tank-image");
+    Entity& newEntityB(manager.AddEntity("tank2"));
+    newEntityB.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    newEntityB.AddComponent<SpriteComponent>("tank-image");
 
-    Entity& newEntity3(manager.AddEntity("tank3"));
-    newEntity3.AddComponent<TransformComponent>(600, 500, -20, -20, 32, 32, 2);
-    newEntity3.AddComponent<SpriteComponent>("tank-image");
+    Entity& newEntityC(manager.AddEntity("tank3"));
+    newEntityC.AddComponent<TransformComponent>(600, 500, -20, -20, 32, 32, 2);
+    newEntityC.AddComponent<SpriteComponent>("tank-image");
 }
 
 void Game::ProcessInput()
