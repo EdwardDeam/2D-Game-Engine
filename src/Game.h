@@ -29,5 +29,7 @@ class Game
         void Render();
         void HandleCameraMovement();
         void CheckCollisions();
+        void ProcessNextLevel(int levelNumber);
+        void ProcessGameOver();
         void Destroy();
 };

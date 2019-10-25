@@ -84,24 +84,46 @@ std::vector<Entity*> EntityManager::GetEntitiesByLayer(LayerType layer) const
     }
     return selectedEntities;
 }
-std::string EntityManager::CheckEntityCollisions(Entity& myEntity) const 
+CollisionType EntityManager::CheckCollisions() const 
 {
-    ColliderComponent* myCollider = myEntity.GetComponent<ColliderComponent>();
-    for (auto & entity : entities)
+    for (int i = 0; i < entities.size() - 1; i++)
     {
-        if(entity->name.compare(myEntity.name) != 0 && entity->name.compare("Tile") != 0)
+        auto& thisEntity = entities[i];
+        if(thisEntity->HasComponent<ColliderComponent>())
         {
-            if(entity->HasComponent<ColliderComponent>())
+            ColliderComponent* thisCollider = thisEntity->GetComponent<ColliderComponent>();
+            for (int j = i + 1; j < entities.size(); j++)
             {
-                ColliderComponent* otherCollider = entity->GetComponent<ColliderComponent>();
-                if(Collision::CheckRectangleCollision(myCollider->collider, otherCollider->collider))
+                auto& thatEntity = entities[j];
+                if(thisEntity->name.compare(thatEntity->name) != 0 && thatEntity->HasComponent<ColliderComponent>())
                 {
-                    return otherCollider->colliderTag;
+                    ColliderComponent* thatCollider = thatEntity->GetComponent<ColliderComponent>();
+                    if(Collision::CheckRectangleCollision(thisCollider->collider, thatCollider->collider))
+                    {
+                        if(thisCollider->colliderTag.compare("PLAYER") == 0 && thatCollider->colliderTag.compare("ENEMY") == 0)
+                        {
+                            return PLAYER_ENEMY_COLLISION;
+                        }
+                        if(thisCollider->colliderTag.compare("PLAYER") == 0 && thatCollider->colliderTag.compare("PROJECTILE") == 0)
+                        {
+                            return PLAYER_PROJECTILE_COLLISION;
+                        }
+                        if(thisCollider->colliderTag.compare("ENEMY") == 0 && thatCollider->colliderTag.compare("FRIENDLY_PROJECTILE") == 0)
+                        {
+                            return ENEMY_PROJECTILE_COLLISION;
+                        }
+                        if(thisCollider->colliderTag.compare("PLAYER") == 0 && thatCollider->colliderTag.compare("LEVEL_COMPLETE") == 0)
+                        {
+                            return PLAYER_LEVEL_COMPLETE_COLLISION;
+                        }
+                        
+                    }
                 }
+                
             }
         }
     }
-    return std::string();
+    return NO_COLLISION;
 }
 
 unsigned int EntityManager::GetEntityCount()
