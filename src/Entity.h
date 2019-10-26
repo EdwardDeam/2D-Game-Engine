@@ -27,6 +27,7 @@ class Entity
         void Render();
         void Destroy();
         bool IsActive() const;
+        void SetComponentDebugFlags();
 
         void LogAllComponents() const;
 

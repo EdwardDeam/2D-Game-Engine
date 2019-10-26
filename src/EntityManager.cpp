@@ -57,8 +57,15 @@ void EntityManager::Render()
         {
             entity->Render();
         }
+    }  
+}
+
+void EntityManager::SetAllEntitiesDebugFlag()
+{
+    for (auto & entity : entities)
+    {
+        entity->SetComponentDebugFlags();
     }
-    
     
 }
 
@@ -72,6 +79,7 @@ Entity& EntityManager::AddEntity(std::string entityName, LayerType layer)
 std::vector<Entity*> EntityManager::GetEntities() const{
     return entities;
 }
+
 std::vector<Entity*> EntityManager::GetEntitiesByLayer(LayerType layer) const 
 {
     std::vector<Entity*> selectedEntities;
@@ -84,6 +92,7 @@ std::vector<Entity*> EntityManager::GetEntitiesByLayer(LayerType layer) const
     }
     return selectedEntities;
 }
+
 CollisionType EntityManager::CheckCollisions() const 
 {
     for (int i = 0; i < entities.size() - 1; i++)

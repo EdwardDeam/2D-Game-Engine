@@ -41,6 +41,15 @@ bool Entity::IsActive() const
     return this->isActive;
 }
 
+void Entity::SetComponentDebugFlags()
+{
+    for (auto &component : components)
+    {
+        component->ToggleDebugMode();
+    }
+    
+}
+
 void Entity::LogAllComponents() const
 {
     for (auto const &mapElement : componentTypeMap) {

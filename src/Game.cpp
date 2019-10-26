@@ -91,6 +91,7 @@ void Game::LoadLevel(int levelNumber)
     assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
     assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
     assetManager->AddTexture("heliport-image", std::string("./assets/images/heliport.png").c_str());
+    assetManager->AddTexture("collision-image", std::string("./assets/images/collision-texture.png").c_str());
     
     assetManager->AddFont("charriot-font", std::string("./assets/fonts/charriot.ttf").c_str(), 14);
     
@@ -134,6 +135,10 @@ void Game::ProcessInput()
         if(event.key.keysym.sym == SDLK_ESCAPE)
         {
             isRunning = false;
+        }
+        if(event.key.keysym.sym == SDLK_F1)
+        {
+            manager.SetAllEntitiesDebugFlag();
         }
         break;
     default:
