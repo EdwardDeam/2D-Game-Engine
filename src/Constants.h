@@ -1,4 +1,6 @@
 #pragma once
+#include <SDL2/SDL.h>
+
 // TODO: Prefix engine variables
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
@@ -23,5 +25,8 @@ enum LayerType {
     PROJECTILE_LAYER = 4,
     UI_LAYER = 5
 };
+
+const SDL_Color WHITE_COLOR = {255,255,255,255};
+const SDL_Color GREEN_COLOR = {0,255,0,255};
 
 const unsigned int NUM_LAYERS = 6;
